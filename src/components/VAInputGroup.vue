@@ -85,6 +85,8 @@ export default {
   },
   methods: {
     updateValue: function (value) {
+      this.$refs.input.value = value
+      
       this.$emit('input', value)
     }
   },
