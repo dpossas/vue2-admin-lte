@@ -15,13 +15,15 @@
       <slot name="slotPrefixAddonText"></slot>
     </span>
     <va-input
-        :type="type"
-        :vaId="vaId"
-        :placeholder="placeholder"
-        :size="size"
-        :value="value"
-        :isFormControl="type!='file'"
-        :isDisabled="isDisabled"
+      ref="input"
+      :type="type"
+      :vaId="vaId"
+      :placeholder="placeholder"
+      :size="size"
+      :value="value"
+      :isFormControl="type!='file'"
+      :isDisabled="isDisabled"
+      v-on:input="updateValue($event.target.value)"
     ></va-input>
     <span v-if="suffixAddonText || $slots.slotSuffixAddonText" class="input-group-addon">
       {{ suffixAddonText }}
@@ -79,6 +81,12 @@ export default {
     isDisabled: {
       type: Boolean,
       default: false
+    }
+  },
+  methods: {
+    updateValue: function (value) {
+      this.$refs.input.value = value
+      this.$emit('input', value)
     }
   },
   computed: {
